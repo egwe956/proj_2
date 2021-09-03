@@ -1,24 +1,53 @@
-import logo from './logo.svg';
-import './App.css';
+import * as mobilenet from "@tensorflow-models/mobilenet";
+import React, {useState, useEffect} from 'react'
+
+
+
 
 function App() {
+  const [isModelLoading, setIsModelLoading] = useState(false)
+  const [model, setModel] = useState(null)
+  const [imageURL, setImageURL] = useState(null)
+
+  const loadModel = async () =>{
+    setIsModelLoading(true)
+    try{
+      const model = await mobilenet.load()
+      setModel(model)
+      setIsModelLoading(false)
+    } catch (error) {
+      console.log(error)
+      setIsModelLoading(false)
+    }
+  }
+
+  const uploadImage = (e)=>{
+    console.log(e);
+    const {files} = e.target
+    if(files.length > 0){
+      const url= URL.createObjectURL(files[0])
+      setImageURL(url)
+    } else{
+      setImageURL(null)
+    }
+  }
+
+  useEffect(()=>{
+    loadModel()
+  },[])
+
+  if(isModelLoading){
+    return <h2>Evans is preparing a cup of coffee.. Please wait.</h2>
+  }
+
+  console.log(imageURL)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Hello World</h1>
+      <div className="inputHolder"> <input type='file' accept='image' className="uploadInput" onChange={uploadImage}></input></div>
     </div>
+   
+  
   );
 }
 
