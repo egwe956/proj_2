@@ -8,6 +8,7 @@ function App() {
   const [isModelLoading, setIsModelLoading] = useState(false)
   const [model, setModel] = useState(null)
   const [imageURL, setImageURL] = useState(null)
+  const [results, setResults] = useState([])
 
 
   const imageRef = useRef();
@@ -34,7 +35,11 @@ function App() {
       setImageURL(null)
     }
   }
-
+const identify = async () =>{
+  const results = await model.classify(imageRef.current)
+  setResults(results)
+  console.log(results)
+}
   useEffect(()=>{
     loadModel()
   },[])
@@ -43,17 +48,33 @@ function App() {
     return <h2>Evans is preparing a cup of coffee.. Please wait.</h2>
   }
 
-  console.log(imageURL)
+  console.log(results)
   return (
     <div>
-      <h1>Hello World</h1>
+      <h1>This app can tell you what is in a photo.</h1>
       <div className="inputHolder"> <input type='file' accept='image' className="uploadInput" onChange={uploadImage}></input></div>
 
       <div className="mainWrapper">
         <div className="mainContent">
           <div className="imageHolder"> {imageURL && <img src={imageURL} alt="Upload Preview" crossOrigin="anonymous" ref={imageRef} />}</div>
         </div>
-        {imageURL && <button className="button">Identify Image</button>}
+        <div>
+        {results.length > 0 && <div className='resultsHolder'>
+                        {results.map((result, index) => {
+                            return (
+                                <div className='result' key={result.className}>
+                                    <span className='name'>{result.className}</span>
+                                    {/* <span className='confidence'>Confidence level: {(result.probability * 100).toFixed(2)}% {index === 0 && <span className='bestGuess'>Best Guess</span>}</span> */}
+                                </div>
+                            )
+                        })}
+                    </div>}
+                </div>
+        
+
+
+
+        {imageURL && <button className="button" onClick={identify}>Identify Image</button>}
       </div>
     </div>
 
