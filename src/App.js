@@ -61,12 +61,13 @@ const handleOnchange = (e) => {
     return <h2>Mr AI/ML is preparing a cup of coffee.. Please wait.</h2>
   }
 
-  console.log(results[0])
+  console.log(results)
+
 
   
   return (
     <div> 
-      {/* <Voice /> */}
+    
       <h1>This app can tell you what is in a photo.</h1>
       <div className="inputHolder"> <input type='file' accept='image' className="uploadInput" onChange={uploadImage} ref={fileInputRef}></input></div>
       <input type="text" placeholder="or upload image URL" ref={textInputRef} onChange={handleOnchange}></input>
@@ -74,14 +75,21 @@ const handleOnchange = (e) => {
         <div className="mainContent">
           <div className="imageHolder"> {imageURL && <img src={imageURL} alt="Upload Preview" crossOrigin="anonymous" ref={imageRef} />}</div>
         </div>
+
+
         <div>
-          
+
         {results.length > 0 && <div className='resultsHolder'>
+          
                         {results.map((result, index) => {
+                            spoken.say(result.className)
+
                             return (
-                                <div className='result' > 
-                                {/* {spoken.say("The image most likely contains:")} */}
-                                    <div className='name'> {result.className} </div>
+                                <div className='result' key="className"> 
+                                    <div className='name'>{result.className}</div>
+                                    
+
+                                  
                                     {/* // <span className='confidence'>Confidence level: {(result.probability * 100).toFixed(2)}% {index === 0 && <span className='bestGuess'>Best Guess</span>}</span> */}
  </div>
 
