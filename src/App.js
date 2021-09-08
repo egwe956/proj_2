@@ -1,5 +1,7 @@
 import * as mobilenet from "@tensorflow-models/mobilenet";
 import React, {useState, useEffect, useRef} from 'react'
+import UserContext from "./UserContext";
+import Button from "./Button";
 import './index.css'
 // import Voice from "./Voice"
 import spoken from '../node_modules/spoken/build/spoken.js';
@@ -43,11 +45,7 @@ function App() {
     }
   }
 
-  //function that calls the tensorflow library
-const identify = async () =>{
-  const results = await model.classify(imageRef.current)
-  setResults(results)
-}
+
 //submit photos from local machine
 const handleOnchange = (e) => {
   setImageURL(e.target.value)
@@ -66,6 +64,12 @@ const handleOnchange = (e) => {
 
   
   return (
+    <UserContext.Provider
+    value={{isModelLoading, setIsModelLoading, model, setModel, imageURL, setImageURL, results, setResults, imageRef, textInputRef, fileInputRef
+
+    }} >
+
+    
     <div> 
     
       <h1>This app can tell you what is in a photo.</h1>
@@ -103,7 +107,7 @@ const handleOnchange = (e) => {
 
 
 
-        {imageURL && <button className="button" onClick={identify}>Identify Image</button>}
+        {imageURL && <Button />}
         <div>
            
         </div>
@@ -111,7 +115,7 @@ const handleOnchange = (e) => {
     </div>
 
     
-   
+    </UserContext.Provider>
   
   );
 }
