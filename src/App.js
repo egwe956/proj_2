@@ -36,8 +36,13 @@ function App() {
   },[])
 
   if(isModelLoading){
-    return <h2>Mr AI/ML is preparing a cup of coffee.. Please wait.</h2>
+    return <div className="container">
+      <div className="row align-items-center">
+      <p  class="text-center fs-1">Mr AI/ML is preparing a cup of coffee.. Please wait.</p>
+      </div>
+      </div>
   }
+      
 
   console.log(results)
 

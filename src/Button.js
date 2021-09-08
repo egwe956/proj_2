@@ -15,9 +15,9 @@ const identify = async () =>{
 
   }
     return (
-      <React.Fragment>
+      <div className="row align-items-center">
         <button type="button" className="btn btn-dark" className="btn btn-primary" onClick={identify}>Identify Image</button>
-      </React.Fragment>
+      </div>
     )
 }
 
