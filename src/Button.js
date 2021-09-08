@@ -16,7 +16,7 @@ const identify = async () =>{
   }
     return (
       <div className="row align-items-center">
-        <button type="button" className="btn btn-dark" className="btn btn-primary" onClick={identify}>Identify Image</button>
+        <button type="button" className="btn btn-dark" className="btn btn-primary" onClick={identify}>Tell me what it is (Turn on your speakers)</button>
       </div>
     )
 }
