@@ -19,3 +19,9 @@ How to use:
 You can either submit a local file via your local computer, or you can submit a URL of a picture.
 
 Remember to turn up your computer volume as the properties of the photo will be read out to you.
+
+Challenges that I faced:
+
+I initially wanted to use an API called Clarifai but it did not support HTTP calls.
+
+Also, I struggled with finding an appropriate API that could read out the results that came out.
